@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -14,7 +15,8 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        $groups = Group::latest()->get();
+        return view('group.index', compact('groups'));
     }
 
     /**
@@ -46,7 +48,17 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        //
+        if (!Auth::user()) {
+            return redirect('/group/');
+        }
+
+        $authGroups = Auth::user()->groups();
+        foreach ($authGroups as $authGroup) {
+            if ($authGroup->isSame($group)) {
+                return view('group.show', compact('group'));
+            }
+        }
+        return redirect('/group/');
     }
 
     /**

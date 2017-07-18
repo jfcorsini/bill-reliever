@@ -13,4 +13,12 @@ class Group extends Model
     {
         return $this->hasOne('App\Member');
     }
+
+    /**
+     * Check if group received is the same
+     */
+    public function isSame(Group $group)
+    {
+        return $this->id == $group->id;
+    }
 }

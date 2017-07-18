@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/group', 'GroupController@index');
+Route::get('/group/{group}', 'GroupController@show');
