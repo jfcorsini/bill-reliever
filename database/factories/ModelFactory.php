@@ -22,3 +22,31 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Member::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => function () {
+            return factory('App\User')->create()->id;
+        },
+        'group_id' => function () {
+            return factory('App\Group')->create()->id;
+        },
+    ];
+});
+
+$factory->define(App\Group::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->company,
+        'description' => $faker->paragraph
+    ];
+});
+
+$factory->define(App\Payment::class, function (Faker\Generator $faker) {
+    return [
+        'member_id' => function () {
+            return factory('App\Member')->create()->id;
+        },
+        'description' => $faker->paragraph,
+        'value' => $faker->numberBetween(1, 500),
+    ];
+});
