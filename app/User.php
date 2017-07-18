@@ -26,4 +26,24 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * A user may be a member of many groups
+     */
+    public function memberships()
+    {
+        return $this->hasMany('App\Member');
+    }
+
+    /**
+     * Get all groups of user
+     */
+    public function groups()
+    {
+        $groups = [];
+        foreach ($this->memberships as $membership) {
+            $groups[] = $membership->group;
+        }
+        return $groups;
+    }
 }
