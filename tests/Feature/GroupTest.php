@@ -29,24 +29,26 @@ class GroupTest extends TestCase
         $response->assertSee($member->group->name);
     }
 
-    public function test_members_from_another_group_cannot_see_inside_a_group()
+    public function test_unasigned_users_can_only_see_basic_info()
     {
-        $user = factory('App\User')->create();
-        $this->signIn($user);
-        $member = factory('App\Member')->create(['user_id' => $user->id]);
-
-        $group = factory('App\Group')->create();
+        $member = factory('App\Member')->create();
+        $group = $member->group;
 
         $response = $this->get('/group/' . $group->id);
-        $response->assertRedirect('/group');
+        $response->assertDontSee($group->users()[0]->name);
     }
 
-    public function test_unsigned_users_cannot_see_inside_a_group()
+    public function test_signed_user_not_from_the_group_can_only_see_basic_info()
     {
-        $group = factory('App\Group')->create();
+        $user = factory('App\User')->create();
+        $member = factory('App\Member')->create(['user_id' => $user->id]);
+        $group = $member->group;
+
+        $user = factory('App\User')->create();
+        $this->signIn($user);
 
         $response = $this->get('/group/' . $group->id);
-        $response->assertRedirect('/group');
+        $response->assertDontSee($group->users()[0]->name);
     }
 
     public function teste_a_member_can_see_all_members_inside_a_group()

@@ -48,17 +48,13 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        if (!Auth::user()) {
-            return redirect('/group/');
-        }
-
         $users = $group->users();
 
-        $authGroups = Auth::user()->groups();
-        if (Auth::user()->isInGroup($group)) {
-            return view('group.show', compact('group', 'users'));
+        $userBelongsToGroup = false;
+        if (Auth::user() && Auth::user()->isInGroup($group)) {
+            $userBelongsToGroup = true;
         }
-        return redirect('/group/');
+        return view('group.show', compact('group', 'users', 'userBelongsToGroup'));
     }
 
     /**
