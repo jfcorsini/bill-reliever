@@ -21,3 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/group', 'GroupController@index');
 Route::get('/group/{group}', 'GroupController@show');
+
+Route::get('/user/{user}', 'UserController@show');

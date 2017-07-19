@@ -18,9 +18,8 @@ class GroupTest extends TestCase
         $response->assertSee($group->name);
     }
 
-    public function test_only_members_of_group_can_see_inside_a_group()
+    public function test_members_of_group_can_see_inside_a_group()
     {
-        $anotherUser = factory('App\User')->create();
         $user = factory('App\User')->create();
         $member = factory('App\Member')->create(['user_id' => $user->id]);
         $group = $member->group;
@@ -28,8 +27,16 @@ class GroupTest extends TestCase
         $this->signIn($user);
         $response = $this->get('/group/' . $group->id);
         $response->assertSee($member->group->name);
+    }
 
-        $this->signIn($anotherUser);
+    public function test_members_from_another_group_cannot_see_inside_a_group()
+    {
+        $user = factory('App\User')->create();
+        $this->signIn($user);
+        $member = factory('App\Member')->create(['user_id' => $user->id]);
+
+        $group = factory('App\Group')->create();
+
         $response = $this->get('/group/' . $group->id);
         $response->assertRedirect('/group');
     }
@@ -40,5 +47,19 @@ class GroupTest extends TestCase
 
         $response = $this->get('/group/' . $group->id);
         $response->assertRedirect('/group');
+    }
+
+    public function teste_a_member_can_see_all_members_inside_a_group()
+    {
+        $user = factory('App\User')->create();
+        $member = factory('App\Member')->create(['user_id' => $user->id]);
+        $group = $member->group;
+        $members = factory('App\Member', 2)->create(["group_id" => $group->id]);
+
+        $this->signIn($user);
+        $response = $this->get('/group/' . $group->id);
+
+        $response->assertSee($members[0]->user->name);
+        $response->assertSee($members[1]->user->name);
     }
 }

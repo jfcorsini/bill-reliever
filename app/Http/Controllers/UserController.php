@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
-use Illuminate\Support\Facades\Auth;
+use App\User;
 use Illuminate\Http\Request;
 
-class GroupController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::latest()->get();
-        return view('group.index', compact('groups'));
+        //
     }
 
     /**
@@ -43,31 +41,21 @@ class GroupController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Group  $group
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Group $group)
+    public function show(User $user)
     {
-        if (!Auth::user()) {
-            return redirect('/group/');
-        }
-
-        $users = $group->users();
-
-        $authGroups = Auth::user()->groups();
-        if (Auth::user()->isInGroup($group)) {
-            return view('group.show', compact('group', 'users'));
-        }
-        return redirect('/group/');
+        return view('user.show', compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Group  $group
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Group $group)
+    public function edit(User $user)
     {
         //
     }
@@ -76,10 +64,10 @@ class GroupController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Group  $group
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Group $group)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -87,10 +75,10 @@ class GroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Group  $group
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Group $group)
+    public function destroy(User $user)
     {
         //
     }

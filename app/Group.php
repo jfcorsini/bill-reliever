@@ -7,11 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     /**
-     * Get the member of the group
+     * Get all members from the group
      */
-    public function member()
+    public function members()
     {
-        return $this->hasOne('App\Member');
+        return $this->hasMany('App\Member');
+    }
+
+    /**
+     * Get all users from the group
+     */
+    public function users()
+    {
+        $users = [];
+        foreach ($this->members as $member) {
+            $users[] = $member->user;
+        }
+        return $users;
     }
 
     /**

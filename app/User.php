@@ -46,4 +46,14 @@ class User extends Authenticatable
         }
         return $groups;
     }
+
+    public function isInGroup($focusGroup)
+    {
+        foreach ($this->groups() as $group) {
+            if ($focusGroup->isSame($group)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
