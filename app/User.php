@@ -40,11 +40,9 @@ class User extends Authenticatable
      */
     public function groups()
     {
-        $groups = [];
-        foreach ($this->memberships as $membership) {
-            $groups[] = $membership->group;
-        }
-        return $groups;
+        return $this->memberships->map(function ($membership) {
+            return $membership->group;
+        });
     }
 
     public function isInGroup($focusGroup)

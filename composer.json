@@ -1,6 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "jfcorsini/dutch-treater",
+    "description": "An app to split payments.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",

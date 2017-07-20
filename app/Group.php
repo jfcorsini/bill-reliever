@@ -19,11 +19,9 @@ class Group extends Model
      */
     public function users()
     {
-        $users = [];
-        foreach ($this->members as $member) {
-            $users[] = $member->user;
-        }
-        return $users;
+        return $this->members->map(function ($member) {
+            return $member->user;
+        });
     }
 
     /**
