@@ -23,3 +23,5 @@ Route::get('/group', 'GroupController@index');
 Route::get('/group/{group}', 'GroupController@show');
 
 Route::get('/user/{user}', 'UserController@show');
+
+Route::post('/member', 'MemberController@store');

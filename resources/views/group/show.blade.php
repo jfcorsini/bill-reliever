@@ -50,6 +50,13 @@
                         @else
                             <article>
                                 <p>You are not part of this group to see the users.</p>
+                                @if (Auth::user())
+                                <form method="POST" class="smart-form" action="/member" name="create-{{$group->id}}">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="group_id" value="{{$group->id}}">
+                                </form>
+                                <p>Click <a href="javascript:document.forms['create-{{$group->id}}'].submit()">here</a> to join</p>
+                                @endif
                             </article>
                         @endif
                     </div>
