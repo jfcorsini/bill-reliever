@@ -5,7 +5,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">All Groups</div>
+                <div class="panel-heading">
+                    All Groups
+                    <input type="button" class="btn btn-info btn-xs pull-right" value="New group" onclick="location.href = 'group/create';">
+                </div>
 
                 <div class="panel-body">
                     @foreach ($groups as $group)

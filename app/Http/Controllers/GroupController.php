@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -26,7 +27,10 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        if (!Auth::user()) {
+            return Redirect::route('group.index');
+        }
+        return view('group.create');
     }
 
     /**
@@ -37,7 +41,27 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!Auth::user()) {
+            return Redirect::route('group.index');
+        }
+
+        $this->validate($request, [
+            'name'      => 'required',
+            'description'    => 'required',
+        ]);
+
+        $group = new Group();
+        $group->name = $request->name;
+        $group->description = $request->description;
+        $group->save();
+
+        $newMember = new \App\Member();
+        $newMember->group_id = $group->id;
+        $newMember->user_id = Auth::user()->id;
+        $newMember->owner = true;
+        $newMember->save();
+
+        return redirect('group');
     }
 
     /**

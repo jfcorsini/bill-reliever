@@ -17,6 +17,7 @@ class CreateMembersTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('group_id');
+            $table->boolean('owner')->default(false);
             $table->timestamps();
         });
     }
