@@ -7,6 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     /**
+     * Get all payments from the group
+     */
+    public function payments()
+    {
+        $payments = new \Illuminate\Database\Eloquent\Collection;
+        foreach ($this->members as $member) {
+            $payments = $payments->merge($member->payments);
+        }
+        return $payments;
+    }
+
+    /**
      * Get all members from the group
      */
     public function members()

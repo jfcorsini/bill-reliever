@@ -24,3 +24,8 @@ Route::resource('group', 'GroupController');
 Route::get('/user/{user}', 'UserController@show');
 
 Route::post('/member', 'MemberController@store');
+
+Route::group(['middleware' => 'auth'], function()
+{
+    Route::resource('payment', 'PaymentController');
+});

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Payment;
+use App\{Payment, Member};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -24,7 +25,8 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        //
+        $members = Auth::user()->memberships;
+        return view('payment.create', compact('members'));
     }
 
     /**
@@ -35,7 +37,31 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $member_id = $request['member_id'] ?? null; 
+        $member    = Member::find($member_id);
+        if ($member->user_id != Auth::user()->id) {
+            return redirect()->back(); 
+        }
+
+        $this->validate($request, [
+            'member_id' => 'required',
+            'description' => 'required',
+            'value' => 'required',
+        ]);
+
+        try {
+            $payment = new Payment([
+                "member_id"   => (int) $request['member_id'],
+                "description" => $request['description'],
+                "value"       => $request['value'],
+            ]);
+
+            $payment->save();
+
+            return redirect($payment->groupPath());
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors('error');
+        }
     }
 
     /**

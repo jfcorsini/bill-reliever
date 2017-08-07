@@ -74,11 +74,13 @@ class GroupController extends Controller
     {
         $users = $group->users();
 
+        $payments = $group->payments();
+
         $userBelongsToGroup = false;
         if (Auth::user() && Auth::user()->isInGroup($group)) {
             $userBelongsToGroup = true;
         }
-        return view('group.show', compact('group', 'users', 'userBelongsToGroup'));
+        return view('group.show', compact('group', 'users', 'payments', 'userBelongsToGroup'));
     }
 
     /**

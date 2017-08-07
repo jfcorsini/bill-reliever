@@ -23,4 +23,12 @@ class Member extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Get the all payments from this member
+     */
+    public function payments()
+    {
+        return $this->hasMany('App\Payment');
+    }
 }

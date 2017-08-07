@@ -5,12 +5,53 @@
     <div class="row">
         <div class="col-md-8">
             <div class="panel panel-default">
-                <div class="panel-heading">All payments</div>
+                <div class="panel-heading">
+                    All payments
+                    @if (Auth::user())
+                    <input type="button" class="btn btn-info btn-xs pull-right" value="Create new" onclick="location.href = '/payment/create';">
+                    @endif
+                </div>
                 @if ($userBelongsToGroup)
                     <div class="panel-body">
-                        <article>
-                            Nothing yet to show :)
-                        </article>
+                        @if (is_null($payments))
+                            <article>No payments to show :)</article>
+                        @else
+                            <div class="table-responsive">
+                                <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Creator</th>
+                                        <th>Description</th>
+                                        <th>Value</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($payments as $payment)
+                                    <tr>
+                                        <td>{{ $payment->creator() }}</td>
+                                        <td>{{ $payment->description }}</td>
+                                        <td> R$ {{ (string) $payment->value }}</td>
+                                        <td>
+                                            <div class="dropup">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                    <li><a href="#">Action</a></li>
+                                                    <li><a href="#">Another action</a></li>
+                                                    <li><a href="#">Something else here</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="#">Separated link</a></li>
+                                                </ul>                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                </table>
+                            </div>
+                        @endif
                     </div>
                 @else
                     <div class="panel-body">
