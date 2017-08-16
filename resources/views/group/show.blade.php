@@ -17,7 +17,7 @@
                             <article>No payments to show :)</article>
                         @else
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>Creator</th>
@@ -27,24 +27,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($payments as $payment)
+                                    @foreach($payments as $payment)
                                     <tr>
-                                        <td>{{ $payment->creator() }}</td>
-                                        <td>{{ $payment->description }}</td>
-                                        <td> R$ {{ (string) $payment->value }}</td>
-                                        <td>
-                                            <div class="dropup">
-                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                    <li><a href="#">Action</a></li>
-                                                    <li><a href="#">Another action</a></li>
-                                                    <li><a href="#">Something else here</a></li>
-                                                    <li role="separator" class="divider"></li>
-                                                    <li><a href="#">Separated link</a></li>
-                                                </ul>                                                
-                                            </div>
+                                        <td class="col-md-2">{{ $payment->creator() }}</td>
+                                        <td class="col-md-5">{{ $payment->description }}</td>
+                                        <td class="col-md-2"> R$ {{ (string) $payment->value }}</td>
+                                        <td class="col-md-3">
+                                        {{-- To be implemented   --}}
+                                            <button class="btn btn-primary btn-xs" data-title="Edit">Edit <i class="fa fa-pencil-square-o"></i></button>
+                                            <button class="btn btn-danger btn-xs" data-title="Delete">Delete <i class="fa fa-trash-o"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
