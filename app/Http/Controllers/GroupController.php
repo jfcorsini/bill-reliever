@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\Http\Requests\StoreGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -36,24 +37,12 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreGroup  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreGroup $request)
     {
-        if (!Auth::user()) {
-            return Redirect::route('group.index');
-        }
-
-        $this->validate($request, [
-            'name'      => 'required',
-            'description'    => 'required',
-        ]);
-
-        $group = new Group();
-        $group->name = $request->name;
-        $group->description = $request->description;
-        $group->save();
+        $group = Group::create($request->all());
 
         $newMember = new \App\Member();
         $newMember->group_id = $group->id;

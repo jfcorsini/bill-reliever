@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\{Payment, Member};
+use App\Http\Requests\StorePayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,31 +33,13 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StorePayment  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePayment $request)
     {
-        $member_id = $request['member_id'] ?? null; 
-        $member    = Member::find($member_id);
-        if ($member->user_id != Auth::user()->id) {
-            return redirect()->back(); 
-        }
-
-        $this->validate($request, [
-            'member_id' => 'required',
-            'description' => 'required',
-            'value' => 'required',
-        ]);
-
         try {
-            $payment = new Payment([
-                "member_id"   => (int) $request['member_id'],
-                "description" => $request['description'],
-                "value"       => $request['value'],
-            ]);
-
-            $payment->save();
+            $payment = Payment::create($request->all());
 
             return redirect($payment->groupPath());
         } catch (\Exception $e) {
