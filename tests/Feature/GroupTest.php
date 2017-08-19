@@ -51,7 +51,7 @@ class GroupTest extends TestCase
         $response->assertDontSee($group->users()[0]->name);
     }
 
-    public function teste_a_member_can_see_all_members_inside_a_group()
+    public function test_a_member_can_see_all_members_inside_a_group()
     {
         $user = factory('App\User')->create();
         $member = factory('App\Member')->create(['user_id' => $user->id]);
