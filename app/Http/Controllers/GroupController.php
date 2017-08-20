@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
+use App\{Group, Member};
 use App\Http\Requests\StoreGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -42,9 +42,9 @@ class GroupController extends Controller
      */
     public function store(StoreGroup $request)
     {
-        $group = Group::create($request->all());
+        $group = Group::create($request->except('_token'));
 
-        $newMember = new \App\Member();
+        $newMember = new Member();
         $newMember->group_id = $group->id;
         $newMember->user_id = Auth::user()->id;
         $newMember->owner = true;

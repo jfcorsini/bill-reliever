@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\{Payment, Member};
+use App\Member;
+use App\Payment\Payment;
 use App\Http\Requests\StorePayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,8 +40,7 @@ class PaymentController extends Controller
     public function store(StorePayment $request)
     {
         try {
-            $payment = Payment::create($request->all());
-
+            $payment = Payment::create($request->except('_token'));
             return redirect($payment->groupPath());
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('error');
@@ -50,7 +50,7 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Payment  $payment
+     * @param  \App\Payment\Payment  $payment
      * @return \Illuminate\Http\Response
      */
     public function show(Payment $payment)
@@ -61,7 +61,7 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Payment  $payment
+     * @param  \App\Payment\Payment  $payment
      * @return \Illuminate\Http\Response
      */
     public function edit(Payment $payment)
@@ -73,7 +73,7 @@ class PaymentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Payment  $payment
+     * @param  \App\Payment\Payment  $payment
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Payment $payment)
@@ -84,7 +84,7 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Payment  $payment
+     * @param  \App\Payment\Payment  $payment
      * @return \Illuminate\Http\Response
      */
     public function destroy(Payment $payment)

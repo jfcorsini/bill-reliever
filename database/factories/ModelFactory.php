@@ -41,7 +41,7 @@ $factory->define(App\Group::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Payment::class, function (Faker\Generator $faker) {
+$factory->define(App\Payment\Payment::class, function (Faker\Generator $faker) {
     return [
         'member_id' => function () {
             return factory('App\Member')->create()->id;

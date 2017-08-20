@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Payment;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Member;
 
 class Payment extends Model
 {
@@ -10,8 +11,8 @@ class Payment extends Model
 
     public function groupPath()
     {
-        $group_id = Member::find($this->member_id)->group->id;
-        return 'group/' . $group_id;
+        $groupId = Member::find($this->member_id)->group->id;
+        return 'group/' . $groupId;
     }
 
     public function creator()
