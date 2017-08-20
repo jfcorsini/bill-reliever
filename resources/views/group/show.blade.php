@@ -9,12 +9,12 @@
                 <div class="panel-body">
                     {{ $group->description }}
 
-                    @if ($userBelongsToGroup)
                     <hr>
+                    @if ($userBelongsToGroup)
                         <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#group-users-modal">
                             Show / Hide users
                         </button>
-                        @include('group._users_modal');
+                        @include('group._users_modal')
                     @else
                         <article>
                             <p>You are not part of this group to see the users.</p>
@@ -46,9 +46,10 @@
                             <article>No payments to show :)</article>
                         @else
                             <div class="table-responsive">
-                                <table class="table table-striped">
+                                <table class="table table-striped" id="payment-table">
                                 <thead>
                                     <tr>
+                                        <th><input type="checkbox" value="all"></th>
                                         <th>Creator</th>
                                         <th>Description</th>
                                         <th>Value</th>
@@ -58,6 +59,7 @@
                                 <tbody>
                                     @foreach($payments as $payment)
                                     <tr>
+                                        <td><input type="checkbox" name="payment[]" value="{{$payment->id}}"></td>
                                         <td class="col-md-2">{{ $payment->creator() }}</td>
                                         <td class="col-md-6">{{ $payment->description }}</td>
                                         <td class="col-md-2"> R$ {{ (string) $payment->value }}</td>
