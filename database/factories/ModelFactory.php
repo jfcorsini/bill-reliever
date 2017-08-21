@@ -50,3 +50,10 @@ $factory->define(App\Payment\Payment::class, function (Faker\Generator $faker) {
         'value' => $faker->numberBetween(1, 500),
     ];
 });
+
+$factory->define(App\Bill::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->company,
+        'value' => $faker->numberBetween(1, 500),
+    ];
+});

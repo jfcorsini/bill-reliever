@@ -11,12 +11,17 @@ class Payment extends Model
 
     public function groupPath()
     {
-        $groupId = Member::find($this->member_id)->group->id;
+        $groupId = $this->group()->id;
         return 'group/' . $groupId;
     }
 
     public function creator()
     {
         return Member::find($this->member_id)->user->name;
+    }
+
+    public function group()
+    {
+        return Member::find($this->member_id)->group;
     }
 }
