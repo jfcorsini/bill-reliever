@@ -24,7 +24,7 @@ Sharing expenses are never an easy thing when you live in a lot of people and ke
 
 First you need to create a `.env` file, following the example of `.env.example`. Then configure your database setting and run `php artisan serve` and you'll be able to use it.
 
-If you need some help to use the Laravel project, check it out this link: https://laravel.com/docs/4.2/quick
+If you need some help to use the Laravel project, check it out this link: https://laravel.com/docs/5.4/
 
 
 ## Under Development
