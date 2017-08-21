@@ -15,10 +15,18 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('group_id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('group_id')->unsigned();
             $table->boolean('owner')->default(false);
+            $table->boolean('active')->default(true);
             $table->timestamps();
+        });
+
+        Schema::table('members', function (Blueprint $table) {
+            $table->foreign('group_id')
+                ->references('id')->on('groups');
+            $table->foreign('user_id')
+                ->references('id')->on('users');
         });
     }
 
