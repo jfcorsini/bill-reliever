@@ -29,7 +29,6 @@ class Splitter
      */
     public function split(Bill $bill)
     {
-        $a = $this->debtsPerMember;
         $transactions = [];
         foreach ($this->debtsPerMember as $creditorId => $credit) {
             if ($this->debtsPerMember[$creditorId] <= 0) {
@@ -52,7 +51,6 @@ class Splitter
                 ];
             }
         }
-        // dd($a, $this->getSplittedValue(), $transactions);
         return $transactions;
     }
 
