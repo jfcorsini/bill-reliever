@@ -77,5 +77,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/group.js') }}"></script>
 </body>
 </html>

@@ -46,10 +46,10 @@
                             <article>No payments to show :)</article>
                         @else
                             <div class="table-responsive">
-                                <table class="table table-striped" id="payment-table">
+                                <table class="table table-striped table-bordered" id="payment-table">
                                 <thead>
                                     <tr>
-                                        <th><input type="checkbox" value="all"></th>
+                                        <th><input type="checkbox" value="all" id="payment-check-all"></th>
                                         <th>Creator</th>
                                         <th>Description</th>
                                         <th>Value</th>
@@ -59,7 +59,7 @@
                                 <tbody>
                                     @foreach($payments as $payment)
                                     <tr>
-                                        <td><input type="checkbox" name="payment[]" value="{{$payment->id}}"></td>
+                                        <td><input type="checkbox" name="payment[]" value="{{$payment->id}}" class="payment-checkbox"></td>
                                         <td class="col-md-2">{{ $payment->creator() }}</td>
                                         <td class="col-md-6">{{ $payment->description }}</td>
                                         <td class="col-md-2"> R$ {{ (string) $payment->value }}</td>
@@ -73,6 +73,9 @@
                                 </tbody>
                                 </table>
                             </div>
+                        <button class="btn btn-primary btn-sm" data-title="Split" id="split-button">
+                            <i class="fa fa-money"></i> Split <i class="fa fa-group"></i>
+                        </button>
                         @endif
                     </div>
                 @else
