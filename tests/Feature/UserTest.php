@@ -9,7 +9,7 @@ class UserTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_anyone_can_see_a_user_profile()
+    public function testAnyoneCanSeeAUserProfile()
     {
         $user = factory('App\User')->create();
 

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-	protected $fillable = ['bill_id', 'debtor', 'creditor', 'value'];
+    protected $fillable = ['bill_id', 'debtor', 'creditor', 'value'];
 }

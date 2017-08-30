@@ -9,7 +9,7 @@ class PaymentTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_a_member_can_create_new_payments_within_group()
+    public function testAMemberCanCreateNewPaymentsWithinGroup()
     {
         $member = factory('App\Member')->create();
         $this->signIn($member->user);
@@ -27,7 +27,7 @@ class PaymentTest extends TestCase
             ->assertSee('A piece of nail');
     }
 
-    public function test_unauthorized_users_cannot_create_payments()
+    public function testUnauthorizedUsersCannotCreatePayments()
     {
         $this->get('/payment/create')
             ->assertRedirect('/login');

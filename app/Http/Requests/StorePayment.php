@@ -14,7 +14,7 @@ class StorePayment extends FormRequest
      */
     public function authorize()
     {
-        $memberId = $this->request->get('member_id') ?? null; 
+        $memberId = $this->request->get('member_id') ?? null;
         $member    = \App\Member::find($memberId);
         if ($member->user_id != Auth::user()->id) {
             return redirect('/login');

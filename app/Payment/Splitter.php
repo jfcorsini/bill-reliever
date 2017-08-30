@@ -37,7 +37,7 @@ class Splitter
             foreach ($this->debtsPerMember as $debtorId => $debt) {
                 if ($this->shouldUpdateNextCreditor($creditorId)) {
                     continue 2;
-                } else if($this->debtsPerMember[$debtorId] >= 0) {
+                } else if ($this->debtsPerMember[$debtorId] >= 0) {
                     continue;
                 }
                 $value = $this->getValueToSubtract($this->debtsPerMember[$creditorId], $debt);
@@ -65,7 +65,7 @@ class Splitter
     }
 
     /**
-     * Returns true if credit is small enough to start checking next members 
+     * Returns true if credit is small enough to start checking next members
      *
      * @param int $creditorId
      * @return boolean
@@ -99,7 +99,7 @@ class Splitter
     private function validateAndGetPayments($paymentIds, $groupId)
     {
         $payments = Payment::find($paymentIds);
-        foreach($payments as $payment) {
+        foreach ($payments as $payment) {
             if ($payment->group()->id != $groupId) {
                 throw new WrongGroupException("Some of the payments does not belongs to the group");
             }
@@ -116,7 +116,7 @@ class Splitter
     private function validateMembers($memberIds, $groupId)
     {
         $members = Member::find($memberIds);
-        foreach($members as $member) {
+        foreach ($members as $member) {
             if ($member->group_id != $groupId) {
                 throw new WrongGroupException("Some of the members does not belongs to the group");
             }
@@ -130,7 +130,7 @@ class Splitter
      * @param App\Payment\Payment[] $payments
      * @param int[] $memberIds
      * @return array
-     */   
+     */
     private function getDebtsPerMember($payments, $memberIds) : array
     {
         $valuesPerMember = array_fill_keys($memberIds, 0);
@@ -138,9 +138,9 @@ class Splitter
         foreach ($payments as $payment) {
             $valuesPerMember[$payment->member_id] += $payment->value;
         }
-        $this->averageValue = array_sum($valuesPerMember) / count ($memberIds);
+        $this->averageValue = array_sum($valuesPerMember) / count($memberIds);
 
-        return array_map(function($valuePerMember) {
+        return array_map(function ($valuePerMember) {
             return $valuePerMember - $this->averageValue;
         }, $valuesPerMember);
     }

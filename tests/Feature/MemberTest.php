@@ -9,7 +9,7 @@ class MemberTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_it_has_an_user()
+    public function testItHasAnUser()
     {
         $member = factory('App\Member')->create();
 

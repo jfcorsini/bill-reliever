@@ -7,7 +7,7 @@ use App\Member;
 
 class Payment extends Model
 {
-	protected $fillable = ['member_id', 'value', 'description'];
+    protected $fillable = ['member_id', 'value', 'description'];
 
     public function groupPath()
     {

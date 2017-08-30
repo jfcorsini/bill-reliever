@@ -9,7 +9,7 @@ class GroupTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_a_user_can_see_all_groups()
+    public function testAUserCanSeeAllGroups()
     {
         $group = factory('App\Group')->create();
 
@@ -18,7 +18,7 @@ class GroupTest extends TestCase
         $response->assertSee($group->name);
     }
 
-    public function test_members_of_group_can_see_inside_a_group()
+    public function testMembersOfGroupCanSeeInsideAGroup()
     {
         $user = factory('App\User')->create();
         $member = factory('App\Member')->create(['user_id' => $user->id]);
@@ -29,7 +29,7 @@ class GroupTest extends TestCase
         $response->assertSee($member->group->name);
     }
 
-    public function test_unasigned_users_can_only_see_basic_info()
+    public function testUnasignedUsersCanOnlySeeBasicInfo()
     {
         $member = factory('App\Member')->create();
         $group = $member->group;
@@ -38,7 +38,7 @@ class GroupTest extends TestCase
         $response->assertDontSee($group->users()[0]->name);
     }
 
-    public function test_signed_user_not_from_the_group_can_only_see_basic_info()
+    public function testSignedUserNotFromTheGroupCanOnlySeeBasicInfo()
     {
         $user = factory('App\User')->create();
         $member = factory('App\Member')->create(['user_id' => $user->id]);
@@ -51,7 +51,7 @@ class GroupTest extends TestCase
         $response->assertDontSee($group->users()[0]->name);
     }
 
-    public function test_a_member_can_see_all_members_inside_a_group()
+    public function testAMemberCanSeeAllMembersInsideAGroup()
     {
         $user = factory('App\User')->create();
         $member = factory('App\Member')->create(['user_id' => $user->id]);

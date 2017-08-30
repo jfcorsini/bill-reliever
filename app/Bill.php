@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bill extends Model
 {
-	protected $fillable = ['name', 'value'];
+    protected $fillable = ['name', 'value'];
 
     public static function createWithTransactions($name, $paymentIds, $memberIds, $groupId)
     {
