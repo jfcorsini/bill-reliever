@@ -41,9 +41,11 @@ class PaymentController extends Controller
     {
         try {
             $payment = Payment::create($request->except('_token'));
-            return redirect($payment->groupPath());
+            return redirect($payment->groupPath())
+                ->with('flash', 'Your payment was created');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors('error');
+            return redirect()->back()
+            ->withErrors('error');
         }
     }
 

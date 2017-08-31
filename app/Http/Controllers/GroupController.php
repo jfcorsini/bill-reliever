@@ -50,7 +50,8 @@ class GroupController extends Controller
         $newMember->owner = true;
         $newMember->save();
 
-        return redirect('group');
+        return redirect('group')
+            ->with('flash', 'Your group has been created!');
     }
 
     /**
