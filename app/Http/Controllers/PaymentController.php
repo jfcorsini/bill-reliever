@@ -11,16 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class PaymentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -47,17 +37,6 @@ class PaymentController extends Controller
             return redirect()->back()
             ->withErrors('error');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Payment\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Payment $payment)
-    {
-        //
     }
 
     /**
