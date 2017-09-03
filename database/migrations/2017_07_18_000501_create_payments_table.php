@@ -18,6 +18,7 @@ class CreatePaymentsTable extends Migration
             $table->integer('member_id')->unsigned();
             $table->text('description');
             $table->decimal('value', 5, 2);
+            $table->integer('bill_id')->nullable();
             $table->timestamps();
         });
     }
