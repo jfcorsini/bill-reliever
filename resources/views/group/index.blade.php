@@ -23,6 +23,7 @@
 
                         <hr>
                     @endforeach
+                    {{ $groups->links() }}
                 </div>
             </div>
         </div>

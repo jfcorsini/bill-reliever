@@ -73,6 +73,7 @@
                                 @endforeach
                                 </tbody>
                                 </table>
+                                {{ $payments->links() }}
                             </div>
                         <button class="btn btn-primary btn-sm" data-title="Split" id="split-payments">
                             <i class="fa fa-money"></i> Split <i class="fa fa-group"></i>

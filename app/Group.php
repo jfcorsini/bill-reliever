@@ -13,10 +13,10 @@ class Group extends Model
      */
     public function payments()
     {
-        $payments = new \Illuminate\Database\Eloquent\Collection;
-        foreach ($this->members as $member) {
-            $payments = $payments->merge($member->payments);
-        }
+        $memberIds = $this->members->map(function ($member) {
+            return $member->id;
+        })->toArray();
+        $payments = \App\Payment\Payment::whereIn('member_id', $memberIds)->paginate(10);
         return $payments;
     }
 

@@ -17,7 +17,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::latest()->get();
+        $groups = Group::latest()->paginate(5);
         return view('group.index', compact('groups'));
     }
 
