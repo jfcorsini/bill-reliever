@@ -23,7 +23,7 @@ Route::get('/user/{user}', 'UserController@show');
 
 Route::post('/member', 'MemberController@store');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group([], function () {
     Route::get('group', 'GroupController@index');
     Route::get('group/create', 'GroupController@create');
     Route::post('group', 'GroupController@store');

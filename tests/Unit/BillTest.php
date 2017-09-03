@@ -14,7 +14,7 @@ class BillTest extends TestCase
     public function testCreateNewBillOfOneTransaction()
     {
         $billName = "September of 2018";
-        $bill = factory('App\Bill')->create();
+        $user = factory('App\User')->create();
         $group = factory('App\Group')->create();
         $members = factory('App\Member', 5)->create(['group_id' => $group->id]);
         $payments = [
@@ -60,6 +60,7 @@ class BillTest extends TestCase
     public function testSimpleSplittingOnePaymentInFive()
     {
         $billName = "September of 2018";
+        $user = factory('App\User')->create();
         $group = factory('App\Group')->create();
         $members = factory('App\Member', 3)->create(['group_id' => $group->id]);
         $payments = [

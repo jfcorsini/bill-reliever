@@ -14,7 +14,6 @@
                         <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#group-users-modal">
                             Show / Hide users
                         </button>
-                        
                     @else
                         <article>
                             <p>You are not part of this group to see the users.</p>
@@ -92,7 +91,9 @@
     </div>
 </div>
 
-@include('group._users_modal')
-@include('group._split_payment_modal')
+@if ($userBelongsToGroup)
+    @include('group._users_modal')
+    @include('group._split_payment_modal')
+@endif
 
 @endsection

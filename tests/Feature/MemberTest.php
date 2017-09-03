@@ -11,6 +11,8 @@ class MemberTest extends TestCase
 
     public function testItHasAnUser()
     {
+        $group = factory('App\Group')->create();
+        $user = factory('App\User')->create();
         $member = factory('App\Member')->create();
 
         $this->assertInstanceOf('App\User', $member->user);

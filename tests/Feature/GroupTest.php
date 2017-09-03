@@ -20,6 +20,7 @@ class GroupTest extends TestCase
 
     public function testMembersOfGroupCanSeeInsideAGroup()
     {
+        $group = factory('App\Group')->create();
         $user = factory('App\User')->create();
         $member = factory('App\Member')->create(['user_id' => $user->id]);
         $group = $member->group;
@@ -31,6 +32,8 @@ class GroupTest extends TestCase
 
     public function testUnasignedUsersCanOnlySeeBasicInfo()
     {
+        $group = factory('App\Group')->create();
+        $user = factory('App\User')->create();
         $member = factory('App\Member')->create();
         $group = $member->group;
 
@@ -40,6 +43,7 @@ class GroupTest extends TestCase
 
     public function testSignedUserNotFromTheGroupCanOnlySeeBasicInfo()
     {
+        $group = factory('App\Group')->create();
         $user = factory('App\User')->create();
         $member = factory('App\Member')->create(['user_id' => $user->id]);
         $group = $member->group;
@@ -48,11 +52,13 @@ class GroupTest extends TestCase
         $this->signIn($user);
 
         $response = $this->get('/group/' . $group->id);
+        $response->assertSee($group->description);
         $response->assertDontSee($group->users()[0]->name);
     }
 
     public function testAMemberCanSeeAllMembersInsideAGroup()
     {
+        $group = factory('App\Group')->create();
         $user = factory('App\User')->create();
         $member = factory('App\Member')->create(['user_id' => $user->id]);
         $group = $member->group;

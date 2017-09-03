@@ -11,6 +11,8 @@ class PaymentTest extends TestCase
 
     public function testAMemberCanCreateNewPaymentsWithinGroup()
     {
+        $group = factory('App\Group')->create();
+        $user = factory('App\User')->create();
         $member = factory('App\Member')->create();
         $this->signIn($member->user);
 
