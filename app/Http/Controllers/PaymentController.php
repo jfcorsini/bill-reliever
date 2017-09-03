@@ -54,7 +54,8 @@ class PaymentController extends Controller
         $memberIds = array_keys($request['memberIds']);
         $groupId = (int) $request['groupId'];
         try {
-            Bill::createWithTransactions($billName, $paymentIds, $memberIds, $groupId);
+            $bill = new Bill($billName);
+            $bill->generateTransactionsFromPayments($paymentIds, $memberIds, $groupId);
         } catch (\Exception $e) {
             dd($e);
         }
