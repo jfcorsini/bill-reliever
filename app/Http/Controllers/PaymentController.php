@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Member;
+use App\Bill;
 use App\Payment\Payment;
 use App\Http\Requests\StorePayment;
+use App\Http\Requests\SplitPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,6 +39,27 @@ class PaymentController extends Controller
             return redirect()->back()
             ->withErrors('error');
         }
+    }
+
+    /**
+     * Split all payments into transactions
+     *
+     * @param  App\Http\Requests\StorePayment  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function split(SplitPayment $request)
+    {
+        $billName = $request['identifier'];
+        $paymentIds = array_map('intval', explode(',', $request['paymentIds']));
+        $memberIds = array_keys($request['memberIds']);
+        $groupId = (int) $request['groupId'];
+        try {
+            Bill::createWithTransactions($billName, $paymentIds, $memberIds, $groupId);
+        } catch (\Exception $e) {
+            dd($e);
+        }
+        return redirect('/group/' . $groupId)
+            ->with('flash', 'The payments were splitted!');
     }
 
     /**

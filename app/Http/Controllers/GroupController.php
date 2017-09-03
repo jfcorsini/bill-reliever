@@ -62,7 +62,7 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        $users = $group->users();
+        $members = $group->members;
 
         $payments = $group->payments();
 
@@ -70,7 +70,7 @@ class GroupController extends Controller
         if (Auth::user() && Auth::user()->isInGroup($group)) {
             $userBelongsToGroup = true;
         }
-        return view('group.show', compact('group', 'users', 'payments', 'userBelongsToGroup'));
+        return view('group.show', compact('group', 'members', 'payments', 'userBelongsToGroup'));
     }
 
     /**

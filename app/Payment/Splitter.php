@@ -16,7 +16,7 @@ class Splitter
         $this->validateMembers($memberIds, $groupId);
         $payments = $this->validateAndGetPayments($paymentIds, $groupId);
 
-        $this->debtsPerMember = $this->getDebtsPerMember($payments, $memberIds);
+        $this->debtsPerMember = $this->generateDebtsPerMember($payments, $memberIds);
 
         return $this;
     }
@@ -37,7 +37,7 @@ class Splitter
             foreach ($this->debtsPerMember as $debtorId => $debt) {
                 if ($this->shouldUpdateNextCreditor($creditorId)) {
                     continue 2;
-                } else if ($this->debtsPerMember[$debtorId] >= 0) {
+                } elseif ($this->debtsPerMember[$debtorId] >= 0) {
                     continue;
                 }
                 $value = $this->getValueToSubtract($this->debtsPerMember[$creditorId], $debt);
@@ -131,7 +131,7 @@ class Splitter
      * @param int[] $memberIds
      * @return array
      */
-    private function getDebtsPerMember($payments, $memberIds) : array
+    private function generateDebtsPerMember($payments, $memberIds) : array
     {
         $valuesPerMember = array_fill_keys($memberIds, 0);
 

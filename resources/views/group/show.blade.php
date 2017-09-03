@@ -14,7 +14,7 @@
                         <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#group-users-modal">
                             Show / Hide users
                         </button>
-                        @include('group._users_modal')
+                        
                     @else
                         <article>
                             <p>You are not part of this group to see the users.</p>
@@ -37,7 +37,9 @@
                 <div class="panel-heading">
                     All payments
                     @if (Auth::user())
-                        <input type="button" class="btn btn-info btn-xs pull-right" value="Create new" onclick="location.href = '/payment/create';">
+                        <button id="create-new-payment" class="btn btn-info btn-xs pull-right">
+                            Create new
+                        </button>
                     @endif
                 </div>
                 @if ($userBelongsToGroup)
@@ -59,7 +61,7 @@
                                 <tbody>
                                     @foreach($payments as $payment)
                                     <tr>
-                                        <td><input type="checkbox" name="payment[]" value="{{$payment->id}}" class="payment-checkbox"></td>
+                                        <td><input type="checkbox" value="{{$payment->id}}" class="payment-checkbox"></td>
                                         <td class="col-md-2">{{ $payment->creator() }}</td>
                                         <td class="col-md-6">{{ $payment->description }}</td>
                                         <td class="col-md-2"> R$ {{ (string) $payment->value }}</td>
@@ -73,7 +75,7 @@
                                 </tbody>
                                 </table>
                             </div>
-                        <button class="btn btn-primary btn-sm" data-title="Split" id="split-button">
+                        <button class="btn btn-primary btn-sm" data-title="Split" id="split-payments">
                             <i class="fa fa-money"></i> Split <i class="fa fa-group"></i>
                         </button>
                         @endif
@@ -89,4 +91,8 @@
         </div>
     </div>
 </div>
+
+@include('group._users_modal')
+@include('group._split_payment_modal')
+
 @endsection

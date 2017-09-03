@@ -7,10 +7,10 @@
             </div>
             <div class="modal-body">
                 <ul>
-                    @foreach($users as $user)
+                    @foreach($members as $member)
                         <li>
-                            <a href="/user/{{$user->id}}">
-                                {{ $user->name }}
+                            <a href="/user/{{$member->user->id}}">
+                                {{ $member->user->name }}
                             </a>
                         </li>
                     @endforeach
