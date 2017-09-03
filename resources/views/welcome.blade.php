@@ -83,9 +83,14 @@
                 </div>
 
                 <div class="links">
-                    <a href="#">My Profile</a>
-                    <a href="/group">Groups</a>
-                    <a href="#">My payments</a>
+                    @if (Auth::check())
+                    <a href="/group?self=true">My groups</a>
+                    <a href="{{'/user/' . \Auth::user()->id }}">My Profile</a>
+                    @else
+                        <a href="{{ url('/login') }}">Login</a>
+                        <a href="{{ url('/register') }}">Register</a>
+                    @endif
+                    <a href="/group">All Groups</a>
                 </div>
             </div>
         </div>

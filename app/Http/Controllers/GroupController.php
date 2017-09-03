@@ -15,9 +15,14 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $groups = Group::latest()->paginate(5);
+        $groups = Group::latest();
+        if ($request->get('self') && \Auth::check()) {
+            $groupIds = \Auth::user()->groupIds();
+            $groups = $groups->whereIn('id', $groupIds);
+        }
+        $groups = $groups->paginate(5);
         return view('group.index', compact('groups'));
     }
 
