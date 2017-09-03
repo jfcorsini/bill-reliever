@@ -152,8 +152,8 @@ class Splitter
      * @param int $debt
      * @return int
      */
-    private function getValueToSubtract($credit, $debt) : int
+    private function getValueToSubtract($credit, $debt) : float
     {
-        return min($credit, abs($debt));
+        return number_format(min($credit, abs($debt)), 2);
     }
 }
