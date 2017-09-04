@@ -49,13 +49,14 @@ class PaymentController extends Controller
      */
     public function split(SplitPayment $request)
     {
-        $billName = $request['identifier'];
+        $now = new \Carbon\Carbon();
+        $billName = $request['identifier'] ?? 'Bill of ' . $now->toFormattedDateString();
         $paymentIds = array_map('intval', explode(',', $request['paymentIds']));
         $memberIds = array_keys($request['memberIds']);
         $groupId = (int) $request['groupId'];
         try {
-            $bill = new Bill($billName);
-            $bill->generateTransactionsFromPayments($paymentIds, $memberIds, $groupId);
+            $bill = new Bill();
+            $bill->generateTransactionsFromPayments($billName, $paymentIds, $memberIds, $groupId);
         } catch (\Exception $e) {
             dd($e);
         }

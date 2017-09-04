@@ -25,7 +25,6 @@ class SplitPayment extends FormRequest
     public function rules()
     {
         return [
-            'identifier' => 'required',
             'memberIds'  => 'required',
             'paymentIds' => 'required',
             'groupId'    => 'required',
