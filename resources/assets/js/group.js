@@ -17,6 +17,32 @@ $(document).ready(function () {
         }
     });
 
+    $(".delete-payment-button").click(function () {
+        var element = this;
+        let paymentId = element.dataset.paymentId;
+        let token = element.dataset.token;
+        $.ajax({
+            url: '/payment/' + paymentId,
+            method: 'POST',
+            data: {
+                _method: 'delete',
+                _token: token
+            },
+            success: function(result) {
+                flash('Payment was deleted!');
+                element.parentElement.parentElement.remove()
+            },
+            error: function() {
+                flash('There was an error do delete this payment.', 'danger');
+            }
+        });
+    });
+
+    $(".see-bill-button").click(function () {
+        let billId = this.dataset .billId;
+        location.href = '/bill/' + billId;
+    });
+
     getPaymentIds = function() {
         let paymentCheckbox = document.querySelectorAll('.payment-checkbox:checked');
 

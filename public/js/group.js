@@ -95,6 +95,32 @@ $(document).ready(function () {
         }
     });
 
+    $(".delete-payment-button").click(function () {
+        var element = this;
+        var paymentId = element.dataset.paymentId;
+        var token = element.dataset.token;
+        $.ajax({
+            url: '/payment/' + paymentId,
+            method: 'POST',
+            data: {
+                _method: 'delete',
+                _token: token
+            },
+            success: function success(result) {
+                flash('Payment was deleted!');
+                element.parentElement.parentElement.remove();
+            },
+            error: function error() {
+                flash('There was an error do delete this payment.', 'danger');
+            }
+        });
+    });
+
+    $(".see-bill-button").click(function () {
+        var billId = this.dataset.billId;
+        location.href = '/bill/' + billId;
+    });
+
     getPaymentIds = function getPaymentIds() {
         var paymentCheckbox = document.querySelectorAll('.payment-checkbox:checked');
 

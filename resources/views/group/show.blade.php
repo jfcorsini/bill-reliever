@@ -54,20 +54,26 @@
                                         <th>Creator</th>
                                         <th>Description</th>
                                         <th>Value</th>
-                                        <th>Actions</th>
+                                        <th>Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($payments as $payment)
                                     <tr>
-                                        <td><input type="checkbox" value="{{$payment->id}}" class="payment-checkbox"></td>
+                                        <td>
+                                            @if (!$payment->hasBill())
+                                                <input type="checkbox" value="{{$payment->id}}" class="payment-checkbox">
+                                            @endif
+                                        </td>
                                         <td class="col-md-2">{{ $payment->creator() }}</td>
-                                        <td class="col-md-6">{{ $payment->description }}</td>
-                                        <td class="col-md-2"> R$ {{ (string) $payment->value }}</td>
-                                        <td class="col-md-2">
-                                        {{-- To be implemented   --}}
-                                            <button class="btn btn-primary btn-xs" data-title="Edit">Edit <i class="fa fa-pencil-square-o"></i></button>
-                                            <button class="btn btn-danger btn-xs" data-title="Delete">Delete <i class="fa fa-trash-o"></i></button>
+                                        <td class="col-md-8">{{ $payment->description }}</td>
+                                        <td class="col-md-1"> R$ {{ (string) $payment->value }}</td>
+                                        <td class="col-md-1">
+                                            @if ($payment->hasBill())
+                                                <button class="btn btn-primary btn-xs see-bill-button" data-bill-id="{{$payment->bill()->id}}">See Bill <i class="fa fa-money"></i></button>
+                                            @else
+                                                <button class="btn btn-danger btn-xs delete-payment-button" data-token="{{ csrf_token() }}" data-payment-id="{{$payment->id}}">Delete <i class="fa fa-trash-o"></i></button>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -76,7 +82,7 @@
                                 {{ $payments->links() }}
                             </div>
                         <button class="btn btn-primary btn-sm" data-title="Split" id="split-payments">
-                            <i class="fa fa-money"></i> Split <i class="fa fa-group"></i>
+                             Split <i class="fa fa-group"></i>
                         </button>
                         @endif
                     </div>

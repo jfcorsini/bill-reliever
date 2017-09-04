@@ -36,7 +36,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('payment/create', 'PaymentController@create');
     Route::post('payment', 'PaymentController@store');
     Route::post('payment/split', 'PaymentController@split');
-    Route::get('payment/{payment}/edit', 'PaymentController@edit'); // Not implemented yet
-    Route::put('payment/{payment}', 'PaymentController@update'); // Not implemented yet
-    Route::delete('payment/{payment}', 'PaymentController@destroy');  // Not implemented yet
+    Route::delete('payment/{payment}', 'PaymentController@destroy');
 });

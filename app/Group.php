@@ -13,11 +13,20 @@ class Group extends Model
      */
     public function payments()
     {
-        $memberIds = $this->members->map(function ($member) {
+        $memberIds = $this->getMembersIds();
+        return \App\Payment\Payment::getPaginatorForMembers($memberIds);
+    }
+
+    /**
+     * Return an array containing the ids of the members from the group
+     *
+     * @return array
+     */
+    private function getMembersIds()
+    {
+        return $this->members->map(function ($member) {
             return $member->id;
         })->toArray();
-        $payments = \App\Payment\Payment::whereIn('member_id', $memberIds)->paginate(10);
-        return $payments;
     }
 
     /**
