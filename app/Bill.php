@@ -9,16 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bill extends Model
 {
-    private $name;
-
     protected $fillable = ['name', 'value'];
 
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
-
-    public function generateTransactionsFromPayments($paymentIds, $memberIds, $groupId)
+    public function generateTransactionsFromPayments($name, $paymentIds, $memberIds, $groupId)
     {
         try {
             \Log::debug('Starting the process to generate transactions from payments', [
@@ -27,7 +20,7 @@ class Bill extends Model
 
             DB::beginTransaction();
 
-            $splitter = $this->updateBill($paymentIds, $memberIds, $groupId);
+            $splitter = $this->updateBill($name, $paymentIds, $memberIds, $groupId);
             $this->updatePayments($paymentIds);
             $this->createTransactions($splitter);
 
@@ -41,12 +34,12 @@ class Bill extends Model
         }
     }
 
-    private function updateBill($paymentIds, $memberIds, $groupId)
+    private function updateBill($name, $paymentIds, $memberIds, $groupId)
     {
         $splitter = new Splitter($paymentIds, $memberIds, $groupId);
 
         $this->fill([
-            'name'  => $this->name,
+            'name'  => $name,
             'value' => $splitter->getSplittedValue()
         ]);
         $this->save();

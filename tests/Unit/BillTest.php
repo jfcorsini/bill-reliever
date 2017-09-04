@@ -29,8 +29,8 @@ class BillTest extends TestCase
             return $member['id'];
         }, $members->toArray());
 
-        $bill = new Bill($billName);
-        $bill->generateTransactionsFromPayments($paymentIds, $memberIds, $group->id);
+        $bill = new Bill();
+        $bill->generateTransactionsFromPayments($billName, $paymentIds, $memberIds, $group->id);
 
         $this->assertDatabaseHas('bills', [
             'name' => $billName
@@ -78,8 +78,8 @@ class BillTest extends TestCase
             return $member['id'];
         }, $members->toArray());
 
-        $bill = new Bill($billName);
-        $bill->generateTransactionsFromPayments($paymentIds, $memberIds, $group->id);
+        $bill = new Bill();
+        $bill->generateTransactionsFromPayments($billName, $paymentIds, $memberIds, $group->id);
 
         $this->assertDatabaseHas('transactions', [
             'debtor'   => 1,
@@ -106,8 +106,8 @@ class BillTest extends TestCase
             return $member['id'];
         }, $members->toArray());
 
-        $bill = new Bill($billName);
-        $bill->generateTransactionsFromPayments($paymentIds, $memberIds, $group->id);
+        $bill = new Bill();
+        $bill->generateTransactionsFromPayments($billName, $paymentIds, $memberIds, $group->id);
 
         $this->assertDatabaseHas('transactions', [
             'debtor'   => 2,
