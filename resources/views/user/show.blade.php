@@ -13,7 +13,25 @@
                     </article>
                 </div>
             </div>
+            @if ($debtors)
+                <div class="panel panel-default">
+                    <div class="panel-heading">Debtors</div>
+                    <div class="panel-body">
+                            @include('bill._table', ['transactions' => $debtors])
+                    </div>
+                </div>
+            @endif
+            @if ($creditors)
+                <div class="panel panel-default">
+                    <div class="panel-heading">Creditors</div>
+                    <div class="panel-body">
+                            @include('bill._table', ['transactions' => $creditors])
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>
 @endsection
+
+                        

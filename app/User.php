@@ -45,11 +45,20 @@ class User extends Authenticatable
         });
     }
 
+    public function memberIds()
+    {
+        return $this->memberships
+            ->map(function ($member) {
+                return $member->id;
+            })->toArray();
+    }
+
     public function groupIds()
     {
-        return $this->groups()->map(function ($group) {
-            return $group->id;
-        })->toArray();
+        return $this->groups()
+            ->map(function ($group) {
+                return $group->id;
+            })->toArray();
     }
 
     public function isInGroup($focusGroup)

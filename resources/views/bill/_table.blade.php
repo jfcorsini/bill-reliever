@@ -11,11 +11,19 @@
         <tbody>
             @foreach($transactions as $transaction)
             <tr>
-                <td class="col-md-4">{{ $members[$transaction->debtor] }}</td>
-                <td class="col-md-4">{{ $members[$transaction->creditor] }}</td>
-                <td class="col-md-3"> R$ {{ (string) $transaction->value }}</td>
+                <td class="col-md-4">
+                    <a href="/user/{{$transaction['debtor']['user']['id']}}">
+                        {{ $transaction['debtor']['user']['name'] }}
+                    </a>
+                </td>
+                <td class="col-md-4">
+                    <a href="/user/{{ $transaction['creditor']['user']['id']}}">
+                        {{ $transaction['creditor']['user']['name'] }}
+                    </a>
+                </td>
+                <td class="col-md-3"> R$ {{ (string) $transaction['value'] }}</td>
                 <td class="col-md-1">
-                    @if ($transaction->paid)
+                    @if ($transaction['paid'])
                         <button class="btn btn-success btn-xs"><i class="fa fa-thumbs-up "></i></button>
                     @else
                         <button class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></button>

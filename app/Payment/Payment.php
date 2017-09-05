@@ -17,7 +17,7 @@ class Payment extends Model
 
     public function creator()
     {
-        return Member::find($this->member_id)->user->name;
+        return Member::find($this->member_id)->user;
     }
 
     public function group()

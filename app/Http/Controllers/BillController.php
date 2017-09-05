@@ -20,13 +20,15 @@ class BillController extends Controller
             return redirect('/home')->with('flash', 'You cannot see this bill.');
         }
 
-        $transactions = $bill->transactions()->get();
-        $members      = $group->getAssociativeMemberIdAndUserName();
+        $transactions = $bill->transactions()
+            ->with(['bill', 'debtor', 'debtor.user', 'creditor', 'creditor.user'])
+            ->get()
+            ->toArray();
 
         if ($request->ajax()) {
-            return view('bill._table', compact('bill', 'transactions', 'members'));
+            return view('bill._table', compact('bill', 'transactions'));
         }
 
-        return view('bill.show', compact('bill', 'transactions', 'members'));
+        return view('bill.show', compact('bill', 'transactions'));
     }
 }

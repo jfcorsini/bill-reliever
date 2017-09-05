@@ -65,7 +65,11 @@
                                                 <input type="checkbox" value="{{$payment->id}}" class="payment-checkbox">
                                             @endif
                                         </td>
-                                        <td class="col-md-2">{{ $payment->creator() }}</td>
+                                        <td class="col-md-2">
+                                            <a href="/user/{{$payment->creator()->id}}">
+                                                {{ $payment->creator()->name }}
+                                            </a>
+                                        </td>
                                         <td class="col-md-8">{{ $payment->description }}</td>
                                         <td class="col-md-1"> R$ {{ (string) $payment->value }}</td>
                                         <td class="col-md-1">
