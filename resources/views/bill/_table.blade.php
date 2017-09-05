@@ -26,7 +26,7 @@
                     @if ($transaction['paid'])
                         <button class="btn btn-success btn-xs"><i class="fa fa-thumbs-up "></i></button>
                     @else
-                        <button class="btn btn-danger btn-xs"><i class="fa fa-thumbs-down"></i></button>
+                        <button class="btn btn-danger btn-xs pay-transaction-button" data-transaction-id="{{$transaction['id']}}"><i class="fa fa-thumbs-down"></i></button>
                     @endif
                 </td>
             </tr>

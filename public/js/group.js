@@ -95,6 +95,21 @@ $(document).ready(function () {
         }
     });
 
+    $(".pay-transaction-button").click(function () {
+        var element = this;
+        var transactionId = element.dataset.transactionId;
+        $.ajax({
+            url: '/transaction/' + transactionId + '/pay',
+            success: function success(result) {
+                flash('Payment successfull.');
+                element.parentElement.parentElement.remove();
+            },
+            error: function error() {
+                flash('This transaction is not yours to pay..', 'danger');
+            }
+        });
+    });
+
     $(".delete-payment-button").click(function () {
         var element = this;
         var paymentId = element.dataset.paymentId;

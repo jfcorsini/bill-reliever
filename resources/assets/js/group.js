@@ -17,6 +17,21 @@ $(document).ready(function () {
         }
     });
 
+    $(".pay-transaction-button").click(function () {
+        var element = this;
+        let transactionId = element.dataset.transactionId;
+        $.ajax({
+            url: '/transaction/' + transactionId + '/pay',
+            success: function(result) {
+                flash('Payment successfull.');
+                element.parentElement.parentElement.remove()
+            },
+            error: function() {
+                flash('This transaction is not yours to pay..', 'danger');
+            }
+        });
+    });
+
     $(".delete-payment-button").click(function () {
         var element = this;
         let paymentId = element.dataset.paymentId;
@@ -39,8 +54,8 @@ $(document).ready(function () {
     });
 
     $(".see-bill-button").click(function () {
-        let billId = this.dataset .billId;
-        let billName = this.dataset .billName;
+        let billId = this.dataset.billId;
+        let billName = this.dataset.billName;
         $.ajax({
             url: '/bill/' + billId,
             success: function(result) {

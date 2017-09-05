@@ -40,3 +40,5 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('bill/{bill}', 'BillController@show');
+Route::get('transaction/{transaction}/pay', 'TransactionController@pay')
+    ->middleware('auth');

@@ -22,4 +22,16 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\Member', 'creditor');
     }
+
+    public function belongsToAuthUser()
+    {
+        $userId = \Auth::user()->id;
+        $debtorId = $this->debtor()->first()->user()->first()->id;
+        $creditorId = $this->creditor()->first()->user()->first()->id;
+
+        if ($userId == $debtorId || $userId == $creditorId) {
+            return true;
+        }
+        return false;
+    }
 }
