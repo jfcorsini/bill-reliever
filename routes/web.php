@@ -38,3 +38,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('payment/split', 'PaymentController@split');
     Route::delete('payment/{payment}', 'PaymentController@destroy');
 });
+
+Route::get('bill/{bill}', 'BillController@show');

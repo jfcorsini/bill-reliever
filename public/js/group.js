@@ -118,7 +118,16 @@ $(document).ready(function () {
 
     $(".see-bill-button").click(function () {
         var billId = this.dataset.billId;
-        location.href = '/bill/' + billId;
+        $.ajax({
+            url: '/bill/' + billId,
+            success: function success(result) {
+                $("#bill-modal").modal();
+                $("#bill-modal .modal-body").html(result);
+            },
+            error: function error() {
+                flash('There was a problem to show this bill.', 'danger');
+            }
+        });
     });
 
     getPaymentIds = function getPaymentIds() {

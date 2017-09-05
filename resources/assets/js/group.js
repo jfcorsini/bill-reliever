@@ -40,7 +40,16 @@ $(document).ready(function () {
 
     $(".see-bill-button").click(function () {
         let billId = this.dataset .billId;
-        location.href = '/bill/' + billId;
+        $.ajax({
+            url: '/bill/' + billId,
+            success: function(result) {
+                $("#bill-modal").modal();
+                $("#bill-modal .modal-body").html(result);
+            },
+            error: function() {
+                flash('There was a problem to show this bill.', 'danger');
+            }
+        });
     });
 
     getPaymentIds = function() {

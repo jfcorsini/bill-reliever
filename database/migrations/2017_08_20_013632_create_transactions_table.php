@@ -19,6 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('debtor')->unsigned();
             $table->integer('creditor')->unsigned();
             $table->decimal('value', 5, 2);
+            $table->boolean('paid')->default(false);
             $table->timestamps();
         });
 

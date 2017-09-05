@@ -9,7 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bill extends Model
 {
-    protected $fillable = ['name', 'value'];
+    protected $fillable = ['name', 'value', 'group_id'];
+
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction');
+    }
+
+    public function group()
+    {
+        return $this->belongsTo('App\Group');
+    }
 
     public function generateTransactionsFromPayments($name, $paymentIds, $memberIds, $groupId)
     {
@@ -39,8 +49,9 @@ class Bill extends Model
         $splitter = new Splitter($paymentIds, $memberIds, $groupId);
 
         $this->fill([
-            'name'  => $name,
-            'value' => $splitter->getSplittedValue()
+            'name'     => $name,
+            'value'    => $splitter->getSplittedValue(),
+            'group_id' => $groupId,
         ]);
         $this->save();
 

@@ -101,6 +101,7 @@
 @if ($userBelongsToGroup)
     @include('group._users_modal')
     @include('group._split_payment_modal')
+    @include('group._bill_modal')
 @endif
 
 @endsection

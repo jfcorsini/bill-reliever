@@ -54,4 +54,13 @@ class Group extends Model
     {
         return $this->id == $group->id;
     }
+
+    public function getAssociativeMemberIdAndUserName()
+    {
+        return $this->members()
+            ->get()
+            ->mapWithKeys(function ($member) {
+                return [$member['id'] => $member->user()->first()->name];
+            })->toArray();
+    }
 }
