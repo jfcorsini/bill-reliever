@@ -118,10 +118,12 @@ $(document).ready(function () {
 
     $(".see-bill-button").click(function () {
         var billId = this.dataset.billId;
+        var billName = this.dataset.billName;
         $.ajax({
             url: '/bill/' + billId,
             success: function success(result) {
                 $("#bill-modal").modal();
+                $("#bill-modal .modal-title").html(billName);
                 $("#bill-modal .modal-body").html(result);
             },
             error: function error() {

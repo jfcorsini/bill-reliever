@@ -70,7 +70,7 @@
                                         <td class="col-md-1"> R$ {{ (string) $payment->value }}</td>
                                         <td class="col-md-1">
                                             @if ($payment->hasBill())
-                                                <button class="btn btn-primary btn-xs see-bill-button" data-bill-id="{{$payment->bill()->id}}">See Bill <i class="fa fa-money"></i></button>
+                                                <button class="btn btn-primary btn-xs see-bill-button" data-bill-name="{{$payment->bill()->name}}" data-bill-id="{{$payment->bill()->id}}">See Bill <i class="fa fa-money"></i></button>
                                             @else
                                                 <button class="btn btn-danger btn-xs delete-payment-button" data-token="{{ csrf_token() }}" data-payment-id="{{$payment->id}}">Delete <i class="fa fa-trash-o"></i></button>
                                             @endif

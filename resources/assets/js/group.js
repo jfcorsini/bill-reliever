@@ -40,10 +40,12 @@ $(document).ready(function () {
 
     $(".see-bill-button").click(function () {
         let billId = this.dataset .billId;
+        let billName = this.dataset .billName;
         $.ajax({
             url: '/bill/' + billId,
             success: function(result) {
                 $("#bill-modal").modal();
+                $("#bill-modal .modal-title").html(billName);
                 $("#bill-modal .modal-body").html(result);
             },
             error: function() {
